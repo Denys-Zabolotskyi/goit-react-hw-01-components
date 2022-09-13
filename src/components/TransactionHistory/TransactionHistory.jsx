@@ -1,21 +1,39 @@
-export function TransactionHistory({items}) {
-    return (<table className="transaction-history">
-  <thead>
-    <tr >
-      <th>Type</th>
-      <th>Amount</th>
-      <th>Currency</th>
-    </tr>
-  </thead>
+import PropTypes from 'prop-types';
+import { Table, Head, Tr, Th, Body, Td } from 'components/TransactionHistory/TransactionHistory.styled';
 
-        <tbody>
-            {items.map(({id, type, amount, currency})=>( <tr key={id}>
-      <td>{type}</td>
-      <td>{amount}</td>
-      <td>{currency}</td>
-    </tr>))}
-   
- 
-  </tbody>
-</table>)
-}
+export const TransactionHistory = ({ items }) => {
+  return (
+    <Table>
+      <Head>
+        <Tr>
+          <Th>Type</Th>
+          <Th>Amount</Th>
+          <Th>Currency</Th>
+        </Tr>
+      </Head>
+
+      <Body>
+        {items.map(({ id, type, amount, currency }) => {
+          return (
+            <Tr key={id}>
+              <Td>{type}</Td>
+              <Td>{amount}</Td>
+              <Td>{currency}</Td>
+            </Tr>
+          );
+        })}
+      </Body>
+    </Table>
+  );
+};
+
+TransactionHistory.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      amount: PropTypes.string.isRequired,
+      currency: PropTypes.string.isRequired,
+    })
+  ),
+};
